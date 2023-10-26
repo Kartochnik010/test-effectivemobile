@@ -3,17 +3,18 @@
 
 ## Developer notes
 
-[*] hello world
-[*] plan project structure
-[*] setting up postgres with docker 
-[*] .env config
-[*] repository layer
-[*] service layer 
-[ ] trasport layer
-[ ] web server
-[ ] tests
-[ ] swagger docs
+- [x] hello world
+- [x] plan project structure
+- [x] setting up postgres with docker 
+- [x] .env config
+- [x] repository layer
+- [ ] service layer 
+- [ ] trasport layer
+- [ ] web server
+- [ ] tests
+- [ ] swagger docs
 
+*You can check commits with comments*
 
 ## Endpoints
 GET `/people`: Получение данных с фильтрами и пагинацией.
