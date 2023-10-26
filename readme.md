@@ -17,7 +17,37 @@
 - [ ] tests
 - [ ] swagger docs
 
-*You can check commits with comments*
+## Get Started
+
+Установим необходимые зависимости 
+```
+go mod tidy
+
+go get -tags 'postgres' -u github.com/golang-migrate/migrate/cmd/migrate
+```
+Далее запустим бд
+```
+docker-compose up
+```
+или
+```
+make postgres
+```
+
+Запустим миграции
+```
+make migrate/up
+```
+
+И теперь можем запускать
+```
+make run
+```
+Вы можете заметить что `make run` запускает программу с флагом `-debug`. Вы можете отключить эту фичу запустив приложение вручную
+```
+go run ./cmd/api
+```
+
 
 ## Endpoints
 GET `/people`: Получение данных с фильтрами и пагинацией.
@@ -47,7 +77,7 @@ go get -tags 'postgres' -u github.com/golang-migrate/migrate/cmd/migrate
 
 Create new migration file:
 ```
-migrate create -ext sql -dir db/migrations -seq create_people_table
+migrate create -ext sql -dir ./migrations -seq create_people_table
 ```
 
 **Execute** migration:
