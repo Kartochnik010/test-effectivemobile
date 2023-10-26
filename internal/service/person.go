@@ -14,16 +14,34 @@ func NewPersonService(repo repository.Person) *PersonService {
 }
 
 func (p *PersonService) InsertPerson(person models.Person) (models.Person, error) {
-	return models.Person{}, nil
+	person, err := p.repo.InsertPerson(person)
+	if err != nil {
+		return models.Person{}, err
+	}
+
+	return person, nil
 }
 func (p *PersonService) FindPersonById(id int) (models.Person, error) {
-	return models.Person{}, nil
+	person, err := p.repo.FindPersonById(id)
+	if err != nil {
+		return models.Person{}, err
+	}
+
+	// Perform additional business logic if needed
+
+	return person, nil
 }
 func (p *PersonService) DeletePersonById(id int) error {
-	return nil
+	return p.repo.DeletePersonById(id)
 }
 func (p *PersonService) UpdatePersonById(id int, person models.Person) (models.Person, error) {
-	return models.Person{}, nil
+	updatedPerson, err := p.repo.UpdatePersonById(id, person)
+	if err != nil {
+		return models.Person{}, err
+	}
+
+	// Return the updated person
+	return updatedPerson, nil
 }
 func (p *PersonService) SearchPerson(filters models.Filters) ([]models.Person, models.Metadata, error) {
 	return nil, models.Metadata{}, nil

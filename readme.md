@@ -8,7 +8,7 @@
 - [x] setting up postgres with docker 
 - [x] .env config
 - [x] repository layer
-- [ ] service layer 
+- [x] service layer 
 - [ ] trasport layer
 - [ ] web server
 - [ ] tests

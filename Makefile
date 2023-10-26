@@ -10,7 +10,7 @@ help:
 ## run: run the cmd/api application
 .PHONY: run
 run:
-	@go run ./cmd/api
+	@go run ./cmd/api -debug
 
 ## migrate/up: migrations up
 .PHONY: migrate/up

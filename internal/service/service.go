@@ -1,6 +1,7 @@
 package service
 
 import (
+	"github.com/Kartochnik010/test-effectivemobile/internal/models"
 	"github.com/Kartochnik010/test-effectivemobile/internal/repository"
 )
 
@@ -17,5 +18,5 @@ func NewService(repo *repository.Repository) *Service {
 }
 
 type Requests interface {
-	GetURL(url string) string
+	AddData(person *models.Person)
 }
