@@ -31,7 +31,7 @@ func (r *requestsService) AddData(person *models.Person) {
 		"gender":      fmt.Sprintf("https://api.genderize.io/?name=%s", person.Name),
 		"nationality": fmt.Sprintf("https://api.nationalize.io/?name=%s", person.Name),
 	}
-	p := ConcurrentlySafePerson{p: person}
+	p := ConcurrentlySafePerson{p: person, m: &sync.Mutex{}, wg: &sync.WaitGroup{}}
 	p.wg.Add(3)
 	go func(url string, p ConcurrentlySafePerson) {
 		content, err := getContent(url)

@@ -17,6 +17,7 @@ func (h *Handler) InsertPerson(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "failed to read body", http.StatusBadRequest)
 		return
 	}
+
 	defer r.Body.Close()
 
 	var p models.Person
@@ -26,6 +27,7 @@ func (h *Handler) InsertPerson(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "failed to read body", http.StatusBadRequest)
 		return
 	}
+	h.service.AddData(&p)
 	p, err = h.service.Person.InsertPerson(p)
 	if err != nil {
 		h.logger.Err(err).Msg("failed to h.service.Person.InsertPerson(p)")
