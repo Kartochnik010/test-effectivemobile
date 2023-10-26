@@ -10,12 +10,12 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-type RequestsService struct {
+type requestsService struct {
 	ErrorsChan chan error
 }
 
-func NewRequestsService() Requests {
-	return &RequestsService{}
+func NewRequestsService() requests {
+	return &requestsService{}
 }
 
 type ConcurrentlySafePerson struct {
@@ -24,7 +24,7 @@ type ConcurrentlySafePerson struct {
 	p  *models.Person
 }
 
-func (r *RequestsService) AddData(person *models.Person) {
+func (r *requestsService) AddData(person *models.Person) {
 	urls := map[string]string{
 		"age":         fmt.Sprintf("https://api.agify.io/?name=%s", person.Name),
 		"gender":      fmt.Sprintf("https://api.genderize.io/?name=%s", person.Name),

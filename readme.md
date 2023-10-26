@@ -9,8 +9,8 @@
 - [x] .env config
 - [x] repository layer
 - [x] service layer 
-- [ ] trasport layer
-- [ ] web server
+- [x] trasport layer
+- [x] web server
 - [ ] tests
 - [ ] swagger docs
 

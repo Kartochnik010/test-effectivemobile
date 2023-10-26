@@ -7,16 +7,16 @@ import (
 
 type Service struct {
 	repository.Person
-	Requests
+	requests
 }
 
 func NewService(repo *repository.Repository) *Service {
 	return &Service{
 		Person:   NewPersonService(repo),
-		Requests: NewRequestsService(),
+		requests: NewRequestsService(),
 	}
 }
 
-type Requests interface {
+type requests interface {
 	AddData(person *models.Person)
 }
