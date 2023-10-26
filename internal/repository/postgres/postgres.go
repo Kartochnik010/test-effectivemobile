@@ -2,9 +2,9 @@ package postgres
 
 import (
 	"context"
-	"log/slog"
 
 	"github.com/jackc/pgx/v5"
+	"github.com/rs/zerolog/log"
 
 	_ "github.com/lib/pq"
 )
@@ -19,7 +19,7 @@ type repository struct {
 }
 
 func InitDB(ctx context.Context, dsn string) (Repository, error) {
-	slog.Info("Trying to connect to database", dsn)
+	log.Info().Msg("Trying to connect to database")
 	conn, err := pgx.Connect(ctx, dsn)
 	if err != nil {
 		return nil, err

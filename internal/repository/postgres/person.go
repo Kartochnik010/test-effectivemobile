@@ -7,6 +7,7 @@ import (
 
 	"github.com/Kartochnik010/test-effectivemobile/internal/models"
 	"github.com/jackc/pgx/v5"
+	"github.com/rs/zerolog/log"
 )
 
 const PersonTable = "person"
@@ -36,11 +37,13 @@ func (r *PersonRepo) FindPersonById(id int) (models.Person, error) {
 func (r *PersonRepo) UpdatePersonById(id int, person models.Person) (models.Person, error) {
 	// conditional update
 	query, args := buildPersonUpdateQuery(person)
+	log.Debug().Msg(fmt.Sprint("Preparing query: "+query, args))
 
 	err := r.dbClient.QueryRow(context.Background(), query, append([]interface{}{id}, args...)).Scan(&person.ID, &person.Name, &person.Surname, &person.Patronymic, &person.Age, &person.Gender, &person.Nationality)
 	if err != nil {
 		return models.Person{}, err
 	}
+
 	return person, nil
 }
 
@@ -52,6 +55,7 @@ func (r *PersonRepo) SearchPerson(filters models.Filters) ([]models.Person, mode
 func (r *PersonRepo) InsertPerson(person models.Person) (models.Person, error) {
 	// conditional insert
 	query, args := buildPersonInsertQuery(person)
+	log.Debug().Msg(fmt.Sprint("Preparing query: "+query, args))
 
 	err := r.dbClient.QueryRow(context.Background(), query, args).Scan(&person.ID, &person.Name, &person.Surname, &person.Patronymic, &person.Age, &person.Gender, &person.Nationality)
 	if err != nil {

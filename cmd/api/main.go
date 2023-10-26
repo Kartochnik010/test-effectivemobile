@@ -2,16 +2,16 @@ package main
 
 import (
 	"context"
-	"fmt"
-
-	"log/slog"
 
 	"github.com/Kartochnik010/test-effectivemobile/internal/config"
 	"github.com/Kartochnik010/test-effectivemobile/internal/models"
 	repo "github.com/Kartochnik010/test-effectivemobile/internal/repository"
 	"github.com/Kartochnik010/test-effectivemobile/internal/repository/postgres"
 	_ "github.com/joho/godotenv/autoload"
+	"github.com/rs/zerolog/log"
 )
+
+var ()
 
 func main() {
 	cfg, err := config.New()
@@ -25,7 +25,7 @@ func main() {
 	}
 	defer func() {
 		if err := db.Close(context.Background()); err != nil {
-			slog.Error(err.Error())
+			log.Error().Msg(err.Error())
 		}
 	}()
 
@@ -38,10 +38,9 @@ func main() {
 
 	newP, err := repos.InsertPerson(p)
 	if err != nil {
-		slog.Error(err.Error())
+		log.Error().Msg(err.Error())
 	}
-	fmt.Println(newP)
 	if _, err := repos.UpdatePersonById(newP.ID, models.Person{Surname: "B", Patronymic: "A"}); err != nil {
-		slog.Error(err.Error())
+		log.Err(err)
 	}
 }

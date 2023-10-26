@@ -1,5 +1,20 @@
 # Тестовое задание на Junior Go-разработчика для *Effective Mobile*
 
+
+## Developer notes
+
+[*] hello world
+[*] plan project structure
+[*] setting up postgres with docker 
+[*] .env config
+[*] repository layer
+[*] service layer 
+[ ] trasport layer
+[ ] web server
+[ ] tests
+[ ] swagger docs
+
+
 ## Endpoints
 GET `/people`: Получение данных с фильтрами и пагинацией.
 
@@ -10,9 +25,14 @@ PUT `/people/{id}`: Изменение сущности по `id`.
 POST `/people`: Добавление людей в формате JSON.
 
 
-## Developer notes
-
-> Some steps will be included in Makefile
+## Makefile:
+ help            Print this message
+ run             run the cmd/api application
+ migrate/up      migrations up
+ migrate/down    migrations down
+ postgres        start postgres conitainer
+ postgres/rm     clear postgres container
+ postgres/psql   enter postgres container
 
 **Download** migrate tool:
 ```
