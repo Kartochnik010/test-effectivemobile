@@ -1,5 +1,6 @@
 # Тестовое задание на Junior Go-разработчика для *Effective Mobile*
 
+Всегда можем обсудить любые вопросы у меня в телеграмме: [@ilyas_amantaev](https://t.me/ilyas_amantaev)
 
 ## Developer notes
 
