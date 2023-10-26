@@ -18,7 +18,7 @@ type repository struct {
 	Client *pgx.Conn
 }
 
-func New(ctx context.Context, dsn string) (Repository, error) {
+func InitDB(ctx context.Context, dsn string) (Repository, error) {
 	slog.Info("Trying to connect to database", dsn)
 	conn, err := pgx.Connect(ctx, dsn)
 	if err != nil {

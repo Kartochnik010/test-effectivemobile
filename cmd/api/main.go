@@ -6,10 +6,10 @@ import (
 
 	"log/slog"
 
-	"github.com/Kartochnik010/test-effectivemobile/db/postgres"
 	"github.com/Kartochnik010/test-effectivemobile/internal/config"
 	"github.com/Kartochnik010/test-effectivemobile/internal/models"
 	repo "github.com/Kartochnik010/test-effectivemobile/internal/repository"
+	"github.com/Kartochnik010/test-effectivemobile/internal/repository/postgres"
 	_ "github.com/joho/godotenv/autoload"
 )
 
@@ -19,8 +19,7 @@ func main() {
 		panic(err)
 	}
 
-	// ctx, _ := context.WithDeadline(context.Background(), time.Date(0, 0, 0, 0, 0, 5, 0, time.UTC))
-	db, err := postgres.New(context.Background(), cfg.DSN)
+	db, err := postgres.InitDB(context.Background(), cfg.DSN)
 	if err != nil {
 		panic(err)
 	}
@@ -30,15 +29,19 @@ func main() {
 		}
 	}()
 
-	repos := repo.New(db)
+	repos := repo.NewPostgresRepo(db.GetConnection())
 
 	p := models.Person{
-		Name:    "Dmitriy",
-		Surname: "Ushakov",
+		Name:    "D",
+		Surname: "U",
 	}
 
-	if err := repos.PersonRepo.InsertPerson(p); err != nil {
+	newP, err := repos.InsertPerson(p)
+	if err != nil {
 		slog.Error(err.Error())
 	}
-	fmt.Println("as")
+	fmt.Println(newP)
+	if _, err := repos.UpdatePersonById(newP.ID, models.Person{Surname: "B", Patronymic: "A"}); err != nil {
+		slog.Error(err.Error())
+	}
 }
