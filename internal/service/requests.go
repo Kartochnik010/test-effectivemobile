@@ -1,6 +1,7 @@
 package service
 
 import (
+	"database/sql"
 	"fmt"
 	"io"
 	"net/http"
@@ -44,7 +45,7 @@ func (r *requestsService) AddData(person *models.Person) {
 			r.ErrorsChan <- err
 		}
 		p.m.Lock()
-		p.p.Age = age
+		p.p.Age = sql.NullInt32{Int32: int32(age), Valid: true}
 		p.m.Unlock()
 		p.wg.Done()
 	}(urls["age"], p)
@@ -60,7 +61,7 @@ func (r *requestsService) AddData(person *models.Person) {
 			r.ErrorsChan <- err
 		}
 		p.m.Lock()
-		p.p.Gender = gender
+		p.p.Gender = sql.NullString{String: gender, Valid: true}
 		p.m.Unlock()
 		p.wg.Done()
 	}(urls["gender"], p)
@@ -76,7 +77,7 @@ func (r *requestsService) AddData(person *models.Person) {
 			r.ErrorsChan <- err
 		}
 		p.m.Lock()
-		p.p.Nationality = countryID
+		p.p.Nationality = sql.NullString{String: countryID, Valid: true}
 		p.m.Unlock()
 		p.wg.Done()
 	}(urls["nationality"], p)

@@ -27,16 +27,15 @@ func New() (*Config, error) {
 	if !ok {
 		port = defaultPort
 	}
-	logLevel, ok := os.LookupEnv("LOG_LEVEL")
-	if !ok {
-		logLevel = zerolog.InfoLevel.String()
-	}
 	debug := flag.Bool("debug", false, "sets log level to debug")
 	flag.Parse()
-	zerolog.SetGlobalLevel(zerolog.InfoLevel)
-	if *debug {
-		zerolog.SetGlobalLevel(zerolog.DebugLevel)
+
+	logLevel, ok := os.LookupEnv("LOG_LEVEL")
+	if !*debug || !ok {
+		zerolog.SetGlobalLevel(zerolog.InfoLevel)
+		logLevel = zerolog.InfoLevel.String()
 	}
+	zerolog.SetGlobalLevel(zerolog.DebugLevel)
 	return &Config{
 		DSN:      dsn,
 		Port:     port,

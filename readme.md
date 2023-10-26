@@ -10,7 +10,9 @@
 - [x] repository layer
 - [x] service layer 
 - [x] trasport layer
+- [x] logging
 - [x] web server
+- [ ] pagination, filtering and validation
 - [ ] tests
 - [ ] swagger docs
 
@@ -18,6 +20,8 @@
 
 ## Endpoints
 GET `/people`: Получение данных с фильтрами и пагинацией.
+
+GET `/people/{id}`: Получение данных с фильтрами и пагинацией.
 
 DELETE `/people/{id}`: Удаление записи по `id`.
 

@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"reflect"
+	"strings"
 
 	"github.com/Kartochnik010/test-effectivemobile/internal/models"
 	"github.com/jackc/pgx/v5"
@@ -59,6 +60,9 @@ func (r *PersonRepo) InsertPerson(person models.Person) (models.Person, error) {
 
 	err := r.dbClient.QueryRow(context.Background(), query, args).Scan(&person.ID, &person.Name, &person.Surname, &person.Patronymic, &person.Age, &person.Gender, &person.Nationality)
 	if err != nil {
+		if strings.Index(err.Error(), "can't scan into dest") > 0 {
+
+		}
 		return models.Person{}, err
 	}
 	return person, err
@@ -108,19 +112,19 @@ func buildArgs(person models.Person) ([]string, []interface{}) {
 		arr = append(arr, "surname")
 		args = append(args, person.Surname)
 	}
-	if person.Patronymic != "" {
+	if person.Patronymic.String != "" {
 		arr = append(arr, "patronymic")
 		args = append(args, person.Patronymic)
 	}
-	if person.Age != 0 {
+	if person.Age.Int32 != 0 {
 		arr = append(arr, "age")
 		args = append(args, person.Age)
 	}
-	if person.Age != 0 {
+	if person.Age.Int32 != 0 {
 		arr = append(arr, "gender")
 		args = append(args, person.Age)
 	}
-	if person.Nationality != "" {
+	if person.Nationality.String != "" {
 		arr = append(arr, "nationality")
 		args = append(args, person.Nationality)
 	}

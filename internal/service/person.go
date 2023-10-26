@@ -27,8 +27,6 @@ func (p *PersonService) FindPersonById(id int) (models.Person, error) {
 		return models.Person{}, err
 	}
 
-	// Perform additional business logic if needed
-
 	return person, nil
 }
 func (p *PersonService) DeletePersonById(id int) error {

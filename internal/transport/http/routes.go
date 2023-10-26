@@ -23,10 +23,11 @@ func (h *Handler) Routes() http.Handler {
 			POST   /people
 		`))
 	})
-	r.Get("/people", nil)
-	r.Delete("/people/{id}", nil)
-	r.Put("/people/{id}", nil)
-	r.Post("/people", nil)
+	r.Get("/people", h.SearchPerson)
+	r.Get("/people/{id}", h.FindPersonById)
+	r.Delete("/people/{id}", h.DeletePersonById)
+	r.Put("/people/{id}", h.UpdatePersonById)
+	r.Post("/people", h.InsertPerson)
 
 	return r
 }

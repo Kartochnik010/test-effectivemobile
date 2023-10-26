@@ -7,7 +7,7 @@ import (
 	"strconv"
 
 	"github.com/Kartochnik010/test-effectivemobile/internal/models"
-	"github.com/gorilla/mux"
+	"github.com/go-chi/chi/v5"
 )
 
 func (h *Handler) InsertPerson(w http.ResponseWriter, r *http.Request) {
@@ -38,9 +38,8 @@ func (h *Handler) InsertPerson(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(p)
 }
 func (h *Handler) FindPersonById(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-
-	id, err := strconv.Atoi(vars["id"])
+	idVar := chi.URLParam(r, "id")
+	id, err := strconv.Atoi(idVar)
 	if err != nil {
 		http.Error(w, "Invalid ID", http.StatusBadRequest)
 		h.logger.Err(err).Msg("Invalid ID")
@@ -66,8 +65,8 @@ func (h *Handler) FindPersonById(w http.ResponseWriter, r *http.Request) {
 
 }
 func (h *Handler) DeletePersonById(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id, err := strconv.Atoi(vars["id"])
+	idVar := chi.URLParam(r, "id")
+	id, err := strconv.Atoi(idVar)
 	if err != nil {
 		http.Error(w, "Invalid ID", http.StatusBadRequest)
 		h.logger.Err(err).Msg("Invalid ID")
@@ -85,8 +84,8 @@ func (h *Handler) DeletePersonById(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) UpdatePersonById(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id, err := strconv.Atoi(vars["id"])
+	idVar := chi.URLParam(r, "id")
+	id, err := strconv.Atoi(idVar)
 	if err != nil {
 		http.Error(w, "Invalid ID", http.StatusBadRequest)
 		h.logger.Err(err).Msg("Invalid ID")

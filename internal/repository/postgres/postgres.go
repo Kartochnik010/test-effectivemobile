@@ -19,7 +19,7 @@ type repository struct {
 }
 
 func InitDB(ctx context.Context, dsn string) (Repository, error) {
-	log.Info().Msg("Trying to connect to database")
+	log.Debug().Msg("Trying to connect to database")
 	conn, err := pgx.Connect(ctx, dsn)
 	if err != nil {
 		return nil, err
@@ -29,6 +29,7 @@ func InitDB(ctx context.Context, dsn string) (Repository, error) {
 	if err = repo.Client.Ping(ctx); err != nil {
 		return &repo, err
 	}
+	log.Info().Msg("Successful connection to database")
 
 	return &repo, nil
 }

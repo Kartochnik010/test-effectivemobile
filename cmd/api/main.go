@@ -18,7 +18,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-
 	db, err := postgres.InitDB(context.Background(), cfg.DSN)
 	if err != nil {
 		panic(err)
@@ -33,7 +32,8 @@ func main() {
 	service := service.NewService(repos)
 	t := transport.NewHandler(service, logger.NewLogger(false, ""))
 	var srv transport.HttpServer
-	if err := srv.Run(cfg.Port, t.Routes()); err != nil {
-		log.Err(err).Msg("Failed to start server")
+	log.Info().Msg("Starting server on port :" + cfg.Port)
+	if err := srv.Run(":"+cfg.Port, t.Routes()); err != nil {
+		log.Err(err).Msg(err.Error())
 	}
 }
