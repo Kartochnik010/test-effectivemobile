@@ -13,6 +13,10 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+var (
+	l = logger.NewLogger(false, "")
+)
+
 func main() {
 	cfg, err := config.New()
 	if err != nil {
@@ -22,6 +26,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	l.Info().Msg("Successful connection to database")
 	defer func() {
 		if err := db.Close(context.Background()); err != nil {
 			log.Err(err).Msg("failed to close db connection")
@@ -30,10 +35,10 @@ func main() {
 
 	repos := repo.NewPostgresRepo(db.GetConnection())
 	service := service.NewService(repos)
-	t := transport.NewHandler(service, logger.NewLogger(false, ""))
+	t := transport.NewHandler(service, l)
 	var srv transport.HttpServer
-	log.Info().Msg("Starting server on port :" + cfg.Port)
+	l.Info().Msg("Starting server on port :" + cfg.Port)
 	if err := srv.Run(":"+cfg.Port, t.Routes()); err != nil {
-		log.Err(err).Msg(err.Error())
+		l.Err(err).Msg(err.Error())
 	}
 }
