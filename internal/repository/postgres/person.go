@@ -118,7 +118,7 @@ func buildArgs(person models.Person) ([]string, []interface{}) {
 		args = append(args, a)
 
 	}
-	if person.Gender.String == "" {
+	if person.Gender.String != "" {
 		arr = append(arr, "gender")
 		args = append(args, person.Gender.String)
 	}
